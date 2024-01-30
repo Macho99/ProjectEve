@@ -7,13 +7,11 @@ using UnityEngine.Events;
 public class GameManager : MonoBehaviour
 {
 	private static GameManager instance;
-	private static MouseManager mouseManager;
 	//private static DataManager dataManager;
 	private static ResourceManager resourceManager;
 	//private static InventoryManager inventoryManager;
 	//private static UIManager uiManager;
 	public static GameManager Instance { get { return instance; } }
-	public static MouseManager Mouse {  get { return mouseManager; } }
 	//public static DataManager Data { get { return dataManager; } }
 	public static ResourceManager Resource { get { return resourceManager; } }
 	//public static InventoryManager Inven { get { return inventoryManager; } }
@@ -55,8 +53,6 @@ public class GameManager : MonoBehaviour
 
 	private void InitManagers()
 	{
-		mouseManager = new GameObject("MouseManager").AddComponent<MouseManager>();
-		mouseManager.transform.parent = transform;
 		resourceManager = new GameObject("ResourceManager").AddComponent<ResourceManager>();
 		resourceManager.transform.parent = transform;
 		//dataManager = new GameObject("DataManager").AddComponent<DataManager>();
