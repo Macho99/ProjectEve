@@ -10,9 +10,4 @@ public class PlayerMove : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody>();
 	}
-
-	private void Start()
-	{
-		rb.velocity = transform.forward * 10f;
-	}
 }

@@ -1,43 +1,33 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class PlayerLook : MonoBehaviour
 {
-
+	[SerializeField] CinemachineVirtualCamera virtualCamera;
 	[SerializeField] Transform camRoot;
-	[SerializeField] float sensivility = 10f;
-	[SerializeField] float characterRotationSpeed = 10f;
+	[SerializeField] float sensivility = 30f;
+	[SerializeField] float scrollSensivility = 10f;
 	[SerializeField] bool follow;
 
+	Cinemachine3rdPersonFollow cine3rdPersonFollow;
+	float scrollInput;
 	Vector2 lookInput;
 	float yAngle;
 	float xAngle;
 
 	private void Awake()
 	{
+		cine3rdPersonFollow = virtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
 		//GameManager.Instance.OnFocus.AddListener(AutoEnable);
 	}
 
 	private void OnDestroy()
 	{
 		//GameManager.Instance.OnFocus.RemoveListener(AutoEnable);
-	}
-
-	private void AutoEnable(bool focus)
-	{
-		enabled = focus;
-	}
-
-	private void OnEnable()
-	{
-		Cursor.lockState = CursorLockMode.Locked;
-	}
-
-	private void OnDisable()
-	{
-		Cursor.lockState = CursorLockMode.None;
 	}
 
 	private void LateUpdate()
@@ -58,5 +48,11 @@ public class PlayerLook : MonoBehaviour
 	private void OnLook(InputValue value)
 	{
 		lookInput = value.Get<Vector2>();
+	}
+
+	private void OnScroll(InputValue value)
+	{
+		scrollInput = value.Get<float>();
+		cine3rdPersonFollow.CameraDistance -= scrollInput * Time.deltaTime * scrollSensivility;
 	}
 }
