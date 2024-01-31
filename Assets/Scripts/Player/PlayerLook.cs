@@ -2,8 +2,10 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Device;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using Screen = UnityEngine.Screen;
 
 public class PlayerLook : MonoBehaviour
 {
@@ -13,6 +15,7 @@ public class PlayerLook : MonoBehaviour
 	[SerializeField] float scrollSensivility = 10f;
 	[SerializeField] bool follow;
 	[SerializeField] float doubleClickTime = 0.5f;
+	[SerializeField] float angleMultiple = 0.05f;
 
 	PlayerMove playerMove;
 	Cinemachine3rdPersonFollow cine3rdPersonFollow;
@@ -75,9 +78,7 @@ public class PlayerLook : MonoBehaviour
 
 				if(Time.time < lastEmptyClickTime + doubleClickTime)
 				{
-					//print(mousePosInput);
-					//print(Camera.main.WorldToScreenPoint(new Vector3(mousePosInput.x, mousePosInput.y, 0f)));
-					playerMove.Move(Camera.main.WorldToScreenPoint(new Vector3(mousePosInput.x, mousePosInput.y, 0f)).normalized);
+					DoubleClickMove(mousePosInput);
 				}
 				else
 				{
@@ -90,5 +91,17 @@ public class PlayerLook : MonoBehaviour
 		{
 			isEmptyClicked = false;
 		}
+	}
+
+	private void DoubleClickMove(Vector2 mousePos)
+	{
+		float diffX = mousePos.x - Screen.width * 0.5f;
+		float diffY = mousePos.y - Screen.height * 0.5f;
+
+		Vector3 cameraForward = Camera.main.transform.forward;
+
+		Quaternion rotationY = Quaternion.AngleAxis(diffX * angleMultiple, Camera.main.transform.up);
+		Quaternion rotationX = Quaternion.AngleAxis(-diffY * angleMultiple, Camera.main.transform.right);
+		playerMove.SetDir(rotationX * rotationY * cameraForward);
 	}
 }
