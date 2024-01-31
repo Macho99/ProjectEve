@@ -42,10 +42,19 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Position",
+                    "name": "MousePosition",
                     "type": "Value",
                     "id": "c1c1c8c7-2513-439d-b826-dec4bc10983d",
                     "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Control",
+                    "type": "Value",
+                    "id": "ce17af24-3c7d-4745-8618-9dfeeae65032",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -92,7 +101,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Position",
+                    "action": "MousePosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -104,6 +113,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "RightClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "470b96af-82ef-4302-b34d-ef99b2b9074c",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Control",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

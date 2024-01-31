@@ -60,7 +60,7 @@ public class PlayerLook : MonoBehaviour
 		cine3rdPersonFollow.CameraDistance -= scrollInput * Time.deltaTime * scrollSensivility;
 	}
 
-	private void OnPosition(InputValue value)
+	private void OnMousePosition(InputValue value)
 	{
 		mousePosInput = value.Get<Vector2>();
 	}

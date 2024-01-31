@@ -11,11 +11,13 @@ public class GameManager : MonoBehaviour
 	private static ResourceManager resourceManager;
 	//private static InventoryManager inventoryManager;
 	//private static UIManager uiManager;
+	private static PointerManager pointerManager;
 	public static GameManager Instance { get { return instance; } }
 	//public static DataManager Data { get { return dataManager; } }
 	public static ResourceManager Resource { get { return resourceManager; } }
 	//public static InventoryManager Inven { get { return inventoryManager; } }
 	//public static UIManager UI { get { return uiManager; } }
+	public static PointerManager Pointer { get { return pointerManager; } }
 
 	public UnityEvent onFpsChange;
 	public int fps;
@@ -61,5 +63,7 @@ public class GameManager : MonoBehaviour
 		//inventoryManager.transform.parent = transform;
 		//uiManager = new GameObject("UIManager").AddComponent<UIManager>();
 		//uiManager.transform.parent = transform;
+		pointerManager = new GameObject("PointerManager").AddComponent<PointerManager>();
+		pointerManager.transform.parent = transform;
 	}
 }
