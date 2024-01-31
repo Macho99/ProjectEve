@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
 	[SerializeField] float moveSpeed = 100f;
-	[SerializeField] float rotateSpeed = 100f;
+	//[SerializeField] float rotateSpeed = 100f;
 	[SerializeField] float lerpSpeed = 1f;
 	private Transform rendererTrans;
 	private Rigidbody rb;
@@ -27,5 +27,10 @@ public class PlayerMove : MonoBehaviour
 		if (dir.sqrMagnitude < 0.1f) return;
 		rendererTrans.forward = Vector3.Lerp(rendererTrans.forward, dir, lerpSpeed * Time.deltaTime);
 		rb.velocity = Vector3.Lerp(rb.velocity, dir * moveSpeed, lerpSpeed * Time.deltaTime);
+	}
+
+	private void OnCollisionEnter(Collision collision)
+	{
+		dir = Vector3.zero;
 	}
 }

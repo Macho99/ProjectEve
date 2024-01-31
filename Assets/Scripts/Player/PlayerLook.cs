@@ -13,7 +13,6 @@ public class PlayerLook : MonoBehaviour
 	[SerializeField] Transform camRoot;
 	[SerializeField] float sensivility = 30f;
 	[SerializeField] float scrollSensivility = 10f;
-	[SerializeField] bool follow;
 	[SerializeField] float doubleClickTime = 0.5f;
 	[SerializeField] float angleMultiple = 0.05f;
 
@@ -41,12 +40,11 @@ public class PlayerLook : MonoBehaviour
 
 	private void Look()
 	{
-		if (follow == false) return;
 		if (isEmptyClicked == false) return;
 
 		xAngle += lookInput.x * Time.deltaTime * sensivility;
 		yAngle += lookInput.y * Time.deltaTime * sensivility;
-		yAngle = Mathf.Clamp(yAngle, -50f, 50f);
+		yAngle = Mathf.Clamp(yAngle, -70f, 70f);
 
 		camRoot.rotation = Quaternion.Euler(new Vector3(-yAngle, xAngle, 0f));
 	}
@@ -78,13 +76,12 @@ public class PlayerLook : MonoBehaviour
 
 				if(Time.time < lastEmptyClickTime + doubleClickTime)
 				{
-					DoubleClickMove(mousePosInput);
+					//DoubleClicked
 				}
 				else
 				{
 					lastEmptyClickTime = Time.time;
 				}
-
 			}
 		}
 		else
@@ -93,7 +90,19 @@ public class PlayerLook : MonoBehaviour
 		}
 	}
 
-	private void DoubleClickMove(Vector2 mousePos)
+	private void OnRightClick(InputValue value)
+	{
+		bool clicked = value.Get<float>() > 0.9f ? true : false;
+		if (clicked == true)
+		{
+			if (EventSystem.current.IsPointerOverGameObject() == false)
+			{
+				RightClickMove(mousePosInput);
+			}
+		}
+	}
+
+	private void RightClickMove(Vector2 mousePos)
 	{
 		float diffX = mousePos.x - Screen.width * 0.5f;
 		float diffY = mousePos.y - Screen.height * 0.5f;
